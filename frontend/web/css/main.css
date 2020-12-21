@@ -1,7 +1,18 @@
 .hidden {
     display: none;
 }
-
+.red {
+    color: red;
+}
+.green {
+    color: green;
+}
+.mt20 {
+    margin-top: 20px;
+}
+.mb30 {
+    margin-bottom: 30px;
+}
 * {
     margin: 0;
     padding: 0;

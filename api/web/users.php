@@ -28,30 +28,30 @@ function getUser($connect, $id) {
     }
 }
 
-function addUser($connect, $data) {
-    $username = $data['username'];
-    //$username = 'Второй';
-    $username = mysqli_real_escape_string($connect, $username);
-    $result = mysqli_query($connect , "INSERT INTO `user` (`id`,`username`) VALUES (NULL, '$username')");
-
-    $userId = mysqli_insert_id($connect);
-
-    if ($result && $userId) {
-        http_response_code(201);
-        $res = [
-            'status'  => true,
-            'message' => 'User is add',
-            'userId'  => $userId,
-        ];
-    } else {
-        http_response_code(404);
-        $res = [
-            'status'  => false,
-            'message' => 'User not add',
-        ];
-    }
-    echo json_encode($res);
-}
+//function addUser($connect, $data) {
+//    $username = $data['username'];
+//    //$username = 'Второй';
+//    $username = mysqli_real_escape_string($connect, $username);
+//    $result = mysqli_query($connect , "INSERT INTO `user` (`id`,`username`) VALUES (NULL, '$username')");
+//
+//    $userId = mysqli_insert_id($connect);
+//
+//    if ($result && $userId) {
+//        http_response_code(201);
+//        $res = [
+//            'status'  => true,
+//            'message' => 'User is add',
+//            'userId'  => $userId,
+//        ];
+//    } else {
+//        http_response_code(404);
+//        $res = [
+//            'status'  => false,
+//            'message' => 'User not add',
+//        ];
+//    }
+//    echo json_encode($res);
+//}
 
 function updateUser($connect, $id, $data) {
     $username = $data['username'];

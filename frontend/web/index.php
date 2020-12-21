@@ -1,12 +1,13 @@
 <?php
-session_start();
 
-//if ($_SESSION['user']) {
-//    header('Location: profile.php');
-//}
+require 'functions.php';
+
+session_start();
 
 $auth  = $_SESSION['user'] ? '' : ' hidden';
 $guest = $_SESSION['user'] ? ' hidden' : '';
+
+//dd($_SESSION);
 
 ?>
 
@@ -30,11 +31,11 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                 <div class="header-wrap">
                     <div class="header-item header-item-left">
                         <div class="header-menu">
-                            <a href="#" class="header-menu-item<?=$auth?>">Компании</a>
-                            <a href="#" class="header-menu-item<?=$auth?>">Пользователи</a>
-                            <a href="/vendor/logout.php" class="logout<?=$auth?>">Выход</a>
+<!--                            <a href="#" class="header-menu-item--><?//=$auth?><!--">Компании</a>-->
+<!--                            <a href="#" class="header-menu-item--><?//=$auth?><!--">Пользователи</a>-->
 <!--                            <a href="/register.php" class="header-menu-item--><?//=$guest?><!--">Регистрация</a>-->
 <!--                            <a href="/" class="header-menu-item--><?//=$guest?><!--">Авторизация</a>-->
+                            <a href="logout.php" class="logout<?=$auth?>">Выход (<span class="userlogin"></span>)</a>
                         </div>
                     </div>
                 </div>
@@ -42,10 +43,11 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
         </header>
 
         <main>
+            <h1 class="mb30">Тестовое задание</h1>
             <section class="users<?=$auth?>">
-                <h1>Пользователи</h1>
+                <h2>Пользователи</h2>
                 <div class="container mt-5">
-                    <div class="row list">
+                    <div class="row users-list">
 
                     </div>
 
@@ -70,12 +72,45 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                 </div>
             </section>
 
-            <section class="signup<?=$auth?>"">
+            <section class="companies<?=$auth?>">
+                <h2>Компании</h2>
+                <div class="container mt-5">
+                    <div class="row company-list">
+                        <p class="">У Вас еще нет компаний</p>
+                    </div>
+
+                    <div class="row col-12 mt20">
+                        <div class="md-5">
+                            <h5>Добавление</h5>
+                            <div class="form-group">
+                                <label for="company-name-add">Company Name</label>
+                                <input type="text" class="form-control" id="company-name-add" name="companyNameAdd" value="Первая">
+                            </div>
+                            <div class="form-group">
+                                <label for="company-email-add">E-mail</label>
+                                <input type="text" class="form-control" id="company-email-add" name="companyEmailAdd" value="company1@i.ua">
+                            </div>
+                            <div class="form-group">
+                                <label for="company-phone-add">Phone</label>
+                                <input type="text" class="form-control" id="company-phone-add" name="companyPhoneAdd" value="+3804523908">
+                            </div>
+                            <div class="form-group">
+                                <label for="company-description-add">Description</label>
+                                <textarea class="form-control" id="company-description-add" name="companyDescriptionAdd">Описание компании</textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary" onClick="addCompany()">Добавить компанию</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="register<?=$auth?>">
+                <h2>Регистрация</h2>
                 <form>
                     <label>Логин</label>
                     <input type="text" name="login" placeholder="Введите логин" value="ripa1">
                     <label>Пароль</label>
-                    <input type="password" name="password" placeholder="Введите пароль" value="qwerty123">
+                    <input type="text" name="password" placeholder="Введите пароль" value="qwerty123">
                     <label>Имя</label>
                     <input type="text" name="first_name" placeholder="Введите свое имя" value="Юрий">
                     <label>Фамилия</label>
@@ -84,21 +119,24 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                     <input type="email" name="email" placeholder="Введите свою почту" value="a1@i.ua">
                     <label>Телефон</label>
                     <input type="text" name="phone" placeholder="Введите свой телефон" value="+3804523906">
-                    <p class="signup-msg hidden">Проверьте правильность полей</p>
+                    <p class="register-all register-error red hidden"></p>
+                    <p class="register-all register-ok green hidden"></p>
                     <button type="button" class="register-btn">Зарегистрироваться</button>
-                    <p><a href="#" onClick="$('.signup').addClass('hidden');$('.login').removeClass('hidden');"">Aвторизация</a></p>
+                    <p><a href="#" onClick="$('.register').addClass('hidden');$('.signin').removeClass('hidden');"">Aвторизация</a></p>
                 </form>
             </section>
 
-            <section class="login<?=$guest?>">
+            <section class="signin<?=$guest?>">
+                <h2>Авторизация</h2>
                 <form>
                     <label>Логин</label>
                     <input type="text" name="login" placeholder="Введите свой логин" value="ripa1">
                     <label>Пароль</label>
-                    <input type="password" name="password" placeholder="Введите пароль" value="">
-                    <p class="login-msg hidden">Проверьте правильность полей</p>
-                    <button type="button" class="login-btn">Войти</button>
-                    <p><a href="#" onClick="$('.login').addClass('hidden');$('.signup').removeClass('hidden');">Регистрация</a></p>
+                    <input type="password" name="password" placeholder="Введите пароль" value="qwerty123">
+                    <p class="signin-all signin-error red hidden"></p>
+                    <p class="signup-all signin-ok green hidden"></p>
+                    <button type="button" class="signin-btn">Войти</button>
+                    <p><a href="#" onClick="$('.signin').addClass('hidden');$('.register').removeClass('hidden');">Регистрация</a></p>
                 </form>
             </section>
         </main>
@@ -107,50 +145,3 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
         <script src="/js/main.js"></script>
     </body>
 </html>
-
-<script>
-
-
-    // Регистрация
-    $('.register-btn').click(function (e) {
-        e.preventDefault();
-
-        $(`input`).removeClass('error');
-
-        let login = $('input[name="login"]').val(),
-            password = $('input[name="password"]').val(),
-            full_name = $('input[name="full_name"]').val(),
-            email = $('input[name="email"]').val(),
-            password_confirm = $('input[name="password_confirm"]').val();
-
-        let formData = new FormData();
-        formData.append('login', login);
-        formData.append('password', password);
-        formData.append('password_confirm', password_confirm);
-        formData.append('full_name', full_name);
-        formData.append('email', email);
-        formData.append('avatar', avatar);
-
-        $.ajax({
-            url: 'vendor/signup.php',
-            type: 'POST',
-            dataType: 'json',
-            processData: false,
-            contentType: false,
-            cache: false,
-            data: formData,
-            success (data) {
-                if (data.status) {
-                    document.location.href = '/index.php';
-                } else {
-                    if (data.type === 1) {
-                        data.fields.forEach(function (field) {
-                            $(`input[name="${field}"]`).addClass('error');
-                        });
-                    }
-                    $('.msg').removeClass('none').text(data.message);
-                }
-            }
-        });
-    });
-</script>
