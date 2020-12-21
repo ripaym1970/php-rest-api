@@ -21,11 +21,13 @@ let user = {
 // Авторизация пользователя
 function signinUser(login, password) {
     if (login === '' || password === '') {
+        console.log('Не заданы логин и/или пароль');
+        //alert('Не заданы логин и/или пароль');
         return false;
     }
     signinAll.addClass('hidden');
     registerAll.addClass('hidden');
-    $(`input`).removeClass('error');
+    $('input').removeClass('error');
 
     let formData = new FormData();
     formData.append('login', login);
@@ -63,7 +65,6 @@ function signinUser(login, password) {
         error(res) {
             console.log(res);
             let result = JSON.parse(res.responseText);
-            console.log(result);
             alert(result.message);
         }
     });
@@ -73,7 +74,7 @@ function signinUser(login, password) {
 function logoutUser() {
     signinAll.addClass('hidden');
     registerAll.addClass('hidden');
-    $(`input`).removeClass('error');
+    $('input').removeClass('error');
 
     $.ajax({
         url: 'http://api.phprestapi.loc/user/logout',
@@ -89,7 +90,6 @@ function logoutUser() {
                 user.login    = '';
                 user.password = '';
                 user.save();
-                //$('.userlogin').text(login);
 
                 $('.signin').removeClass('hidden');
                 $('.companies,.logout').addClass('hidden');
@@ -105,7 +105,6 @@ function logoutUser() {
         error(res) {
             console.log(res);
             let result = JSON.parse(res.responseText);
-            console.log(result);
             alert(result.message);
         }
     });
@@ -196,26 +195,38 @@ function logoutUser() {
 let companyList    = document.querySelector('.company-list');
 let inputLogin     = $('input[name="login"]');
 let inputPassword  = $('input[name="password"]');
-let signinAll      = $('.signin-all');
-let signinError    = $('.signin-error');
 let registerAll    = $('.register-all');
 let registerError  = $('.register-error');
 let registerOk     = $('.register-ok');
+
+let inputLogin2    = $('input[name="login2"]');
+let inputPassword2 = $('input[name="password2"]');
+let signinAll      = $('.signin-all');
+let signinError    = $('.signin-error');
 
 // Регистрация с формы
 $('.register-btn').click(function (e) {
     //console.log('register-btn click');
     e.preventDefault();
 
-    $(`input`).removeClass('error');
-    $(`.signup-all,.register-all`).addClass('hidden');
+    $('input').removeClass('error');
+    $('.signup-all,.register-all').addClass('hidden');
 
-    let login = $('input[name="login"]').val(),
-        password = $('input[name="password"]').val(),
+    let login = inputLogin.val(),
+        password = inputPassword.val(),
         first_name = $('input[name="first_name"]').val(),
         last_name = $('input[name="last_name"]').val(),
         email = $('input[name="email"]').val(),
         phone = $('input[name="phone"]').val();
+
+    if (login === '') {
+        inputLogin.addClass('error');
+        return false;
+    }
+    if (password === '') {
+        inputPassword.addClass('error');
+        return false;
+    }
 
     let formData = new FormData();
     formData.append('login', login);
@@ -236,10 +247,8 @@ $('.register-btn').click(function (e) {
         success (res) {
             //console.log(res);
             if (res.status) {
-                //console.log(registerOk);
                 registerOk.removeClass('hidden').text(res.message);
             } else {
-                //console.log(res);
                 registerError.removeClass('hidden').text(res.message);
                 if (res.fields) {
                     res.fields.forEach(function (field) {
@@ -247,14 +256,20 @@ $('.register-btn').click(function (e) {
                     });
                 }
             }
+        },
+        error(res) {
+            console.log(res);
+            let result = JSON.parse(res.responseText);
+            alert(result.message);
         }
     });
 });
 
 // Авторизация с формы
 $('.signin-btn').click(function (e) {
+    //console.log('signin-btn click');
     e.preventDefault();
-    signinUser(inputLogin.val(), inputPassword.val());
+    signinUser(inputLogin2.val(), inputPassword2.val());
 });
 
 // Компании пользователя
@@ -296,7 +311,6 @@ function getCompanies() {
         error(res) {
             console.log(res);
             let result = JSON.parse(res.responseText);
-            console.log(result);
             alert(result.message);
         }
     });
@@ -330,7 +344,6 @@ function addCompany() {
         error(res) {
             console.log(res);
             let result = JSON.parse(res.responseText);
-            console.log(result);
             alert(result.message);
         }
     });

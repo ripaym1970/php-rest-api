@@ -21,8 +21,8 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
         <title>Test API</title>
         <link rel="shortcut icon" href="favicon.ico" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/main.css">
-        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/style.css">
     </head>
 
     <body onload="user.load()">
@@ -130,9 +130,9 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                 <h2>Авторизация</h2>
                 <form>
                     <label for="login2">Логин</label>
-                    <input id="login2" type="text" name="login" placeholder="Введите свой логин" value="ripa1">
+                    <input id="login2" type="text" name="login2" placeholder="Введите свой логин" value="">
                     <label for="password2">Пароль</label>
-                    <input id="password2" type="password" name="password" placeholder="Введите пароль" value="qwerty123">
+                    <input id="password2" type="password" name="password2" placeholder="Введите пароль" value="">
                     <p class="signin-all signin-error red hidden"></p>
                     <p class="signup-all signin-ok green hidden"></p>
                     <button type="button" class="signin-btn">Войти</button>
@@ -141,7 +141,7 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
             </section>
         </main>
 
-        <script src="/js/jquery-3.4.1.min.js"></script>
-        <script src="/js/main.js"></script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>
