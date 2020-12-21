@@ -56,12 +56,12 @@ function signinUser($connect, $data) {
 }
 
 function addUser($connect, $data) {
-    $login      = mysqli_real_escape_string($connect, $data['login']);
+    $login      = mysqli_real_escape_string($connect, validationString($data['login']));
     $password   = md5($data['password']);
-    $first_name = mysqli_real_escape_string($connect, $data['first_name']);
-    $last_name  = mysqli_real_escape_string($connect, $data['last_name']);
-    $email      = mysqli_real_escape_string($connect, $data['email']);
-    $phone      = mysqli_real_escape_string($connect, $data['phone']);
+    $first_name = mysqli_real_escape_string($connect, validationString($data['first_name']));
+    $last_name  = mysqli_real_escape_string($connect, validationString($data['last_name']));
+    $email      = mysqli_real_escape_string($connect, validationString($data['email']));
+    $phone      = mysqli_real_escape_string($connect, validationString($data['phone']));
 
     $check_login = mysqli_query($connect, "SELECT * FROM `user` WHERE `login` = '$login'");
     if (mysqli_num_rows($check_login) > 0) {
@@ -76,7 +76,7 @@ function addUser($connect, $data) {
         die();
     }
 
-    $result = mysqli_query($connect , "INSERT INTO `user` (`id`,`login`,`password`,`first_name`,`last_name`,`email`,`phone`) VALUES (NULL, '$login', '$password', '$first_name', '$last_name', '$email', $phone)");
+    $result = mysqli_query($connect , "INSERT INTO `user` (`id`,`login`,`password`,`first_name`,`last_name`,`email`,`phone`) VALUES (NULL, '$login', '$password', '$first_name', '$last_name', '$email', '$phone')");
 
     $insertId = mysqli_insert_id($connect);
 
@@ -204,3 +204,19 @@ function logoutUser() {
     echo json_encode($response);
 }
 
+/**
+ * Валидация входящего параметра типа string
+ *
+ * @param $s
+ * @return mixed|string
+ */
+function validationString($s) {
+    $s = (string) $s; // преобразуем в строковое значение
+    $s = strip_tags($s); // убираем HTML-теги
+    $s = str_replace(["\n", "\r"], " ", $s); // убираем перевод каретки
+    //$s = preg_replace("/[^0-9a-z-_ ]/i", "", $s); // очищаем строку от недопустимых символов
+    $s = preg_replace("/\s+/", ' ', $s); // удаляем повторяющие пробелы
+    $s = trim($s); // убираем пробелы в начале и конце строки
+
+    return $s; // возвращаем результат
+}

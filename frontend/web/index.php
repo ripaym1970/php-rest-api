@@ -84,15 +84,15 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                             </div>
                             <div class="form-group">
                                 <label for="company-email-add">E-mail</label>
-                                <input type="text" class="form-control company-all" id="company-email-add" name="companyEmailAdd" value="company1@i.ua">
+                                <input type="text" class="form-control company-all" id="company-email-add" name="companyEmailAdd" value="">
                             </div>
                             <div class="form-group">
                                 <label for="company-phone-add">Phone</label>
-                                <input type="text" class="form-control company-all" id="company-phone-add" name="companyPhoneAdd" value="+3804523908">
+                                <input type="text" class="form-control company-all" id="company-phone-add" name="companyPhoneAdd" value="">
                             </div>
                             <div class="form-group">
                                 <label for="company-description-add">Description</label>
-                                <textarea class="form-control company-all" id="company-description-add" name="companyDescriptionAdd">Описание компании</textarea>
+                                <textarea class="form-control company-all" id="company-description-add" name="companyDescriptionAdd"></textarea>
                             </div>
                             <button type="button" class="btn btn-primary" onClick="addCompany()">Добавить компанию</button>
                         </div>
@@ -108,13 +108,13 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                     <label for="password">Пароль</label>
                     <input id="password" type="password" name="password" placeholder="Введите пароль" value="">
                     <label for="first_name">Имя</label>
-                    <input id="first_name" type="text" name="first_name" placeholder="Введите свое имя" value="Юрий">
+                    <input id="first_name" type="text" name="first_name" placeholder="Введите свое имя" value="">
                     <label for="last_name">Фамилия</label>
-                    <input id="last_name" type="text" name="last_name" placeholder="Введите свое фамилию" value="Рипа">
+                    <input id="last_name" type="text" name="last_name" placeholder="Введите свое фамилию" value="">
                     <label for="email">Почта</label>
-                    <input id="email" type="email" name="email" placeholder="Введите свою почту" value="a1@i.ua">
+                    <input id="email" type="email" name="email" placeholder="Введите свою почту" value="">
                     <label for="phone">Телефон</label>
-                    <input id="phone" type="text" name="phone" placeholder="Введите свой телефон" value="+3804523906">
+                    <input id="phone" type="text" name="phone" placeholder="Введите свой телефон" value="">
                     <p class="register-all register-error red hidden"></p>
                     <p class="register-all register-ok green hidden"></p>
                     <button type="button" class="register-btn">Зарегистрироваться</button>
