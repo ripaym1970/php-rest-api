@@ -1,13 +1,9 @@
 <?php
 
-require 'functions.php';
-
 session_start();
 
 $auth  = $_SESSION['user'] ? '' : ' hidden';
 $guest = $_SESSION['user'] ? ' hidden' : '';
-
-//dd($_SESSION);
 
 ?>
 

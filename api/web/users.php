@@ -54,10 +54,9 @@ function getUser($connect, $id) {
 //}
 
 function updateUser($connect, $id, $data) {
-    $username = $data['username'];
-    //$username = 'Третий';
-    $username = mysqli_real_escape_string($connect, $username);
-    $result = mysqli_query($connect , "UPDATE `user` SET `username` = '$username' WHERE `user`.`id` = '$id'");
+    $login = $data['login'];
+    $login = mysqli_real_escape_string($connect, $login);
+    $result = mysqli_query($connect , "UPDATE `user` SET `login` = '$login' WHERE `user`.`id` = '$id'");
 
     if ($result === true) {
         http_response_code(201);
