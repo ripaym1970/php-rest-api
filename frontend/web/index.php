@@ -25,7 +25,7 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
         <link rel="stylesheet" href="/css/style.css">
     </head>
 
-    <body>
+    <body onload="user.load()">
         <header class="header">
             <div class="container">
                 <div class="header-wrap">
@@ -35,7 +35,7 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
 <!--                            <a href="#" class="header-menu-item--><?//=$auth?><!--">Пользователи</a>-->
 <!--                            <a href="/register.php" class="header-menu-item--><?//=$guest?><!--">Регистрация</a>-->
 <!--                            <a href="/" class="header-menu-item--><?//=$guest?><!--">Авторизация</a>-->
-                            <a href="logout.php" class="logout<?=$auth?>">Выход (<span class="userlogin"></span>)</a>
+                            <a href="#" class="logout<?=$auth?>" onClick="logoutUser()">Выход (<span class="userlogin"></span>)</a>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                             <h5>Добавление</h5>
                             <div class="form-group">
                                 <label for="company-name-add">Company Name</label>
-                                <input type="text" class="form-control" id="company-name-add" name="companyNameAdd" value="Первая">
+                                <input type="text" class="form-control" id="company-name-add" name="companyNameAdd" value="">
                             </div>
                             <div class="form-group">
                                 <label for="company-email-add">E-mail</label>
@@ -107,18 +107,18 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
             <section class="register<?=$auth?>">
                 <h2>Регистрация</h2>
                 <form>
-                    <label>Логин</label>
-                    <input type="text" name="login" placeholder="Введите логин" value="ripa1">
-                    <label>Пароль</label>
-                    <input type="text" name="password" placeholder="Введите пароль" value="qwerty123">
-                    <label>Имя</label>
-                    <input type="text" name="first_name" placeholder="Введите свое имя" value="Юрий">
-                    <label>Фамилия</label>
-                    <input type="text" name="last_name" placeholder="Введите свое фамилию" value="Рипа">
-                    <label>Почта</label>
-                    <input type="email" name="email" placeholder="Введите свою почту" value="a1@i.ua">
-                    <label>Телефон</label>
-                    <input type="text" name="phone" placeholder="Введите свой телефон" value="+3804523906">
+                    <label for="login">Логин</label>
+                    <input id="login" type="text" name="login" placeholder="Введите логин" value="">
+                    <label for="password">Пароль</label>
+                    <input id="password" type="text" name="password" placeholder="Введите пароль" value="qwerty123">
+                    <label for="first_name">Имя</label>
+                    <input id="first_name" type="text" name="first_name" placeholder="Введите свое имя" value="Юрий">
+                    <label for="last_name">Фамилия</label>
+                    <input id="last_name" type="text" name="last_name" placeholder="Введите свое фамилию" value="Рипа">
+                    <label for="email">Почта</label>
+                    <input id="email" type="email" name="email" placeholder="Введите свою почту" value="a1@i.ua">
+                    <label for="phone">Телефон</label>
+                    <input id="phone" type="text" name="phone" placeholder="Введите свой телефон" value="+3804523906">
                     <p class="register-all register-error red hidden"></p>
                     <p class="register-all register-ok green hidden"></p>
                     <button type="button" class="register-btn">Зарегистрироваться</button>
@@ -129,10 +129,10 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
             <section class="signin<?=$guest?>">
                 <h2>Авторизация</h2>
                 <form>
-                    <label>Логин</label>
-                    <input type="text" name="login" placeholder="Введите свой логин" value="ripa1">
-                    <label>Пароль</label>
-                    <input type="password" name="password" placeholder="Введите пароль" value="qwerty123">
+                    <label for="login2">Логин</label>
+                    <input id="login2" type="text" name="login" placeholder="Введите свой логин" value="ripa1">
+                    <label for="password2">Пароль</label>
+                    <input id="password2" type="password" name="password" placeholder="Введите пароль" value="qwerty123">
                     <p class="signin-all signin-error red hidden"></p>
                     <p class="signup-all signin-ok green hidden"></p>
                     <button type="button" class="signin-btn">Войти</button>

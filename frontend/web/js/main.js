@@ -1,3 +1,115 @@
+// Пользователь
+let user = {
+    id: null,
+    login: '',
+    password: '',
+
+    // Получение с устройства
+    load: function () {
+        let ls = window.localStorage;
+        signinUser(ls.getItem('login'), ls.getItem('password'))
+    },
+    // Сохранение на устройстве
+    save: function () {
+        let ls = window.localStorage;
+        ls.setItem('iser_id', this.id);
+        ls.setItem('login', this.login);
+        ls.setItem('password', this.password);
+    },
+}
+
+// Авторизация пользователя
+function signinUser(login, password) {
+    if (login === '' || password === '') {
+        return false;
+    }
+    signinAll.addClass('hidden');
+    registerAll.addClass('hidden');
+    $(`input`).removeClass('error');
+
+    let formData = new FormData();
+    formData.append('login', login);
+    formData.append('password', password);
+
+    $.ajax({
+        url: 'http://api.phprestapi.loc/user/sign-in',
+        type: 'POST',
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        cache: false,
+        data: formData,
+        success (res) {
+            if (res.status) {
+                user.id       = res.userId;
+                user.login    = login;
+                user.password = password;
+                user.save();
+                $('.userlogin').text(login);
+
+                $('.signin').addClass('hidden');
+                $('.companies,.logout').removeClass('hidden');
+
+                getCompanies();
+            } else {
+                signinError.removeClass('hidden').text(res.message);
+                if (res.fields) {
+                    res.fields.forEach(function (field) {
+                        $(`input[name="${field}"]`).addClass('error');
+                    });
+                }
+            }
+        },
+        error(res) {
+            console.log(res);
+            let result = JSON.parse(res.responseText);
+            console.log(result);
+            alert(result.message);
+        }
+    });
+}
+
+// Выход
+function logoutUser() {
+    signinAll.addClass('hidden');
+    registerAll.addClass('hidden');
+    $(`input`).removeClass('error');
+
+    $.ajax({
+        url: 'http://api.phprestapi.loc/user/logout',
+        type: 'POST',
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        cache: false,
+        data: {},
+        success (res) {
+            if (res.status) {
+                user.id       = null;
+                user.login    = '';
+                user.password = '';
+                user.save();
+                //$('.userlogin').text(login);
+
+                $('.signin').removeClass('hidden');
+                $('.companies,.logout').addClass('hidden');
+            } else {
+                signinError.removeClass('hidden').text(res.message);
+                if (res.fields) {
+                    res.fields.forEach(function (field) {
+                        $(`input[name="${field}"]`).addClass('error');
+                    });
+                }
+            }
+        },
+        error(res) {
+            console.log(res);
+            let result = JSON.parse(res.responseText);
+            console.log(result);
+            alert(result.message);
+        }
+    });
+}
 
 //let selectUserId = null;
 //let userList = document.querySelector('.user-list');
@@ -81,23 +193,22 @@
 //    }
 //}
 
-// Авторизация
-let userId = null;
-let companyList = document.querySelector('.company-list');
-let login       = $('input[name="login"]');
-let password    = $('input[name="password"]');
-let signinAll   = $('.signin-all');
-let signinError = $('.signin-error');
-let registerError = $('.register-error');
-let registerOk    = $('.register-ok');
+let companyList    = document.querySelector('.company-list');
+let inputLogin     = $('input[name="login"]');
+let inputPassword  = $('input[name="password"]');
+let signinAll      = $('.signin-all');
+let signinError    = $('.signin-error');
+let registerAll    = $('.register-all');
+let registerError  = $('.register-error');
+let registerOk     = $('.register-ok');
 
-// Регистрация
+// Регистрация с формы
 $('.register-btn').click(function (e) {
     //console.log('register-btn click');
     e.preventDefault();
 
     $(`input`).removeClass('error');
-    $(`.signup-all`).addClass('hidden');
+    $(`.signup-all,.register-all`).addClass('hidden');
 
     let login = $('input[name="login"]').val(),
         password = $('input[name="password"]').val(),
@@ -125,10 +236,10 @@ $('.register-btn').click(function (e) {
         success (res) {
             //console.log(res);
             if (res.status) {
-                console.log(registerOk);
+                //console.log(registerOk);
                 registerOk.removeClass('hidden').text(res.message);
             } else {
-                console.log(res);
+                //console.log(res);
                 registerError.removeClass('hidden').text(res.message);
                 if (res.fields) {
                     res.fields.forEach(function (field) {
@@ -140,15 +251,24 @@ $('.register-btn').click(function (e) {
     });
 });
 
+// Авторизация с формы
+$('.signin-btn').click(function (e) {
+    e.preventDefault();
+    signinUser(inputLogin.val(), inputPassword.val());
+});
+
 // Компании пользователя
 function getCompanies() {
+    if (!user.id) {
+        return false;
+    }
     $.ajax({
         url: 'http://api.phprestapi.loc/user/companies',
         type: 'GET',
         cache: false,
         dataType: 'text',
         data: {
-            'userId': userId
+            'userId': user.id
         },
         success(res) {
             //console.log(res);
@@ -172,50 +292,20 @@ function getCompanies() {
                 console.log(res);
                 alert(result.message);
             }
+        },
+        error(res) {
+            console.log(res);
+            let result = JSON.parse(res.responseText);
+            console.log(result);
+            alert(result.message);
         }
     });
 }
 
-// Авторизация
-$('.signin-btn').click(function () {
-    signinAll.addClass('hidden');
-    $(`input`).removeClass('error');
-
-    let formData = new FormData();
-    formData.append('login', login.val());
-    formData.append('password', password.val());
-
-    $.ajax({
-        url: 'http://api.phprestapi.loc/user/sign-in',
-        type: 'POST',
-        dataType: 'json',
-        processData: false,
-        contentType: false,
-        cache: false,
-        data: formData,
-        success (res) {
-            if (res.status) {
-                $('.signin').addClass('hidden');
-                $('.companies,.logout').removeClass('hidden');
-                $('.userlogin').text(res.userLogin);
-                userId = res.userId;
-                getCompanies();
-            } else {
-                signinError.removeClass('hidden').text(data.message);
-                if (res.fields) {
-                    res.fields.forEach(function (field) {
-                        $(`input[name="${field}"]`).addClass('error');
-                    });
-                }
-            }
-        }
-    });
-});
-
-// Добавление компании
+// Добавление компании пользователя
 function addCompany() {
     let formData = new FormData();
-    formData.append('user_id', userId);
+    formData.append('userId', user.id);
     formData.append('name', $('#company-name-add').val());
     formData.append('email', $('#company-email-add').val());
     formData.append('phone', $('#company-phone-add').val());
@@ -236,6 +326,12 @@ function addCompany() {
             } else {
                 alert(res.message);
             }
+        },
+        error(res) {
+            console.log(res);
+            let result = JSON.parse(res.responseText);
+            console.log(result);
+            alert(result.message);
         }
     });
 }

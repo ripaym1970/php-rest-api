@@ -41,10 +41,9 @@ function signinUser($connect, $data) {
         ];
 
         $response = [
-            'status'    => true,
-            'message'   => 'Авторизация успешна',
-            'userId'    => $user['id'],
-            'userLogin' => $user['login'],
+            'status'  => true,
+            'message' => 'Авторизация успешна',
+            'userId'  => $user['id'],
         ];
     } else {
         $response = [
@@ -134,7 +133,7 @@ function addCompany($connect, $data) {
     $description = mysqli_real_escape_string($connect, $data['description']);
     $email       = mysqli_real_escape_string($connect, $data['email']);
     $phone       = mysqli_real_escape_string($connect, $data['phone']);
-    $userId      = mysqli_real_escape_string($connect, $data['user_id']);
+    $userId      = mysqli_real_escape_string($connect, $data['userId']);
 
     $check_login = mysqli_query($connect, "SELECT * FROM `company` WHERE `name` = '$name'");
     if (mysqli_num_rows($check_login) > 0) {
@@ -149,22 +148,23 @@ function addCompany($connect, $data) {
         die();
     }
 
-    $result = mysqli_query($connect , "INSERT INTO `company` (`id`,`name`,`description`,`email`,`phone`,`user_id`) VALUES (NULL, '$name', '$description', '$email', '$phone', '$userId')");
+    $result = mysqli_query($connect, "INSERT INTO `company` (`id`,`name`,`description`,`email`,`phone`,`user_id`) VALUES (NULL, '$name', '$description', '$email', '$phone', '$userId')");
 
     $insertId = mysqli_insert_id($connect);
 
     if ($result && $insertId) {
         http_response_code(201);
         $res = [
-            'status'  => true,
-            'message' => 'Компания успешно добавлена',
-            'userId'  => $insertId,
+            'status'    => true,
+            'message'   => 'Компания успешно добавлена',
+            'companyId' => $insertId,
         ];
     } else {
         http_response_code(404);
         $res = [
             'status'  => false,
             'message' => 'Компания не добавлена',
+            'errors'  => mysqli_error($connect),
         ];
     }
     echo json_encode($res);
@@ -179,3 +179,27 @@ function recoverPassword($connect, $data) {
 
     echo json_encode($res);
 }
+
+function unauthirized() {
+    if (!isset($_SERVER['PHP_AUTH_USER'])) {
+        header('WWW-Authenticate: Basic realm="Private Area"');
+        header('HTTP/1.0 401 Unauthirized');
+        //echo 'Sorry, you need proper credendtials';
+        $response = [
+            'status'  => false,
+            'message' => 'Извините, но вам нужно авторизоваться',
+        ];
+        echo json_encode($response);
+        die();
+    }
+}
+
+function logoutUser() {
+    unset($_SESSION['user']);
+    $response = [
+        'status'  => true,
+        'message' => 'Извините, но вам нужно авторизоваться',
+    ];
+    echo json_encode($response);
+}
+
