@@ -248,6 +248,8 @@ $('.register-btn').click(function (e) {
             //console.log(res);
             if (res.status) {
                 registerOk.removeClass('hidden').text(res.message);
+                inputLogin2.val(login);
+                inputPassword2.val(password);
             } else {
                 registerError.removeClass('hidden').text(res.message);
                 if (res.fields) {
@@ -318,12 +320,25 @@ function getCompanies() {
 
 // Добавление компании пользователя
 function addCompany() {
+    $('.company-all').removeClass('error');
+    let name = $('#company-name-add').val();
+    if (name === '') {
+        $('#company-name-add').addClass('error');
+        return false;
+    }
+    let description = $('#company-description-add').val();
+    if (description === '') {
+        $('#company-description-add').addClass('error');
+        return false;
+    }
+
     let formData = new FormData();
     formData.append('userId', user.id);
-    formData.append('name', $('#company-name-add').val());
+    formData.append('name', name);
     formData.append('email', $('#company-email-add').val());
     formData.append('phone', $('#company-phone-add').val());
-    formData.append('description', $('#company-description-add').val());
+    formData.append('description', description);
+
 
     $.ajax({
         url: 'http://api.phprestapi.loc/user/companies',
@@ -336,6 +351,7 @@ function addCompany() {
         success(res) {
             //console.log(res);
             if (res.status) {
+                $('.company-all').val('');
                 getCompanies();
             } else {
                 alert(res.message);

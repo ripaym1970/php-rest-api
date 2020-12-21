@@ -92,6 +92,7 @@ function addUser($connect, $data) {
         $res = [
             'status'  => false,
             'message' => 'User not add',
+            'errors'  => mysqli_error($connect),
         ];
     }
     echo json_encode($res);

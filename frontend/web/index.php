@@ -80,19 +80,19 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                             <h5>Добавление</h5>
                             <div class="form-group">
                                 <label for="company-name-add">Company Name</label>
-                                <input type="text" class="form-control" id="company-name-add" name="companyNameAdd" value="">
+                                <input type="text" class="form-control company-all" id="company-name-add" name="companyNameAdd" value="">
                             </div>
                             <div class="form-group">
                                 <label for="company-email-add">E-mail</label>
-                                <input type="text" class="form-control" id="company-email-add" name="companyEmailAdd" value="company1@i.ua">
+                                <input type="text" class="form-control company-all" id="company-email-add" name="companyEmailAdd" value="company1@i.ua">
                             </div>
                             <div class="form-group">
                                 <label for="company-phone-add">Phone</label>
-                                <input type="text" class="form-control" id="company-phone-add" name="companyPhoneAdd" value="+3804523908">
+                                <input type="text" class="form-control company-all" id="company-phone-add" name="companyPhoneAdd" value="+3804523908">
                             </div>
                             <div class="form-group">
                                 <label for="company-description-add">Description</label>
-                                <textarea class="form-control" id="company-description-add" name="companyDescriptionAdd">Описание компании</textarea>
+                                <textarea class="form-control company-all" id="company-description-add" name="companyDescriptionAdd">Описание компании</textarea>
                             </div>
                             <button type="button" class="btn btn-primary" onClick="addCompany()">Добавить компанию</button>
                         </div>
@@ -106,7 +106,7 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                     <label for="login">Логин</label>
                     <input id="login" type="text" name="login" placeholder="Введите логин" value="">
                     <label for="password">Пароль</label>
-                    <input id="password" type="text" name="password" placeholder="Введите пароль" value="qwerty123">
+                    <input id="password" type="password" name="password" placeholder="Введите пароль" value="">
                     <label for="first_name">Имя</label>
                     <input id="first_name" type="text" name="first_name" placeholder="Введите свое имя" value="Юрий">
                     <label for="last_name">Фамилия</label>
