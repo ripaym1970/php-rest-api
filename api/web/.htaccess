@@ -1,0 +1,9 @@
+# use mod_rewrite for pretty URL support
+RewriteEngine On
+
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# otherwise forward it to index.php
+RewriteRule ^(.+)$ index.php?q=$1 [L,QSA]
+
