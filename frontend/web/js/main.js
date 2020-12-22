@@ -7,7 +7,12 @@ let user = {
     // Получение с устройства
     load: function () {
         let ls = window.localStorage;
-        signinUser(ls.getItem('login'), ls.getItem('password'))
+        let login = ls.getItem('login');
+        let password = ls.getItem('password');
+        if (!login && !password) {
+        } else {
+            signinUser(login, password);
+        }
     },
     // Сохранение на устройстве
     save: function () {
@@ -20,11 +25,26 @@ let user = {
 
 // Авторизация пользователя
 function signinUser(login, password) {
-    if (login === '' || password === '') {
-        console.log('Не заданы логин и/или пароль');
-        //alert('Не заданы логин и/или пароль');
+    console.log('signinUser login=',login);
+    console.log('signinUser password=',password);
+
+    let fieldErrors = [];
+    if (login === '') {
+        fieldErrors.push('login2');
+    }
+    if (password === '') {
+        fieldErrors.push('password2');
+    }
+    if (fieldErrors.length > 0) {
+        console.log('fieldErrors=',fieldErrors);
+        console.log('fieldErrors Не заданы логин и/или пароль');
+        fieldErrors.forEach(function (field) {
+            $(`input[name="${field}"]`).addClass('error');
+        });
+        signinError.removeClass('hidden');
         return false;
     }
+
     signinAll.addClass('hidden');
     registerAll.addClass('hidden');
     $('input').removeClass('error');
@@ -203,6 +223,7 @@ let inputLogin2    = $('input[name="login2"]');
 let inputPassword2 = $('input[name="password2"]');
 let signinAll      = $('.signin-all');
 let signinError    = $('.signin-error');
+let companyAll      = $('.company-all');
 
 // Регистрация с формы
 $('.register-btn').click(function (e) {
@@ -212,19 +233,36 @@ $('.register-btn').click(function (e) {
     $('input').removeClass('error');
     $('.signup-all,.register-all').addClass('hidden');
 
-    let login = inputLogin.val(),
-        password = inputPassword.val(),
-        first_name = $('input[name="first_name"]').val(),
-        last_name = $('input[name="last_name"]').val(),
-        email = $('input[name="email"]').val(),
-        phone = $('input[name="phone"]').val();
+    let login = validationString(inputLogin.val()),
+        password = validationString(inputPassword.val()),
+        first_name = validationString($('input[name="first_name"]').val()),
+        last_name = validationString($('input[name="last_name"]').val()),
+        email = validationString($('input[name="email"]').val()),
+        phone = validationString($('input[name="phone"]').val());
 
+    let fieldErrors = [];
     if (login === '') {
-        inputLogin.addClass('error');
-        return false;
+        fieldErrors.push('login');
     }
     if (password === '') {
-        inputPassword.addClass('error');
+        fieldErrors.push('password');
+    }
+    if (first_name === '') {
+        fieldErrors.push('first_name');
+    }
+    if (last_name === '') {
+        fieldErrors.push('last_name');
+    }
+    if (email === '') {
+        fieldErrors.push('email');
+    }
+    if (phone === '') {
+        fieldErrors.push('phone');
+    }
+    if (fieldErrors.length > 0) {
+        fieldErrors.forEach(function (field) {
+            $(`input[name="${field}"]`).addClass('error');
+        });
         return false;
     }
 
@@ -269,9 +307,17 @@ $('.register-btn').click(function (e) {
 
 // Авторизация с формы
 $('.signin-btn').click(function (e) {
-    //console.log('signin-btn click');
+    console.log('signin-btn click');
     e.preventDefault();
-    signinUser(inputLogin2.val(), inputPassword2.val());
+    let login = validationString(inputLogin2.val());
+    let password = validationString(inputPassword2.val());
+    console.log('login=',login);
+    console.log('password=',password);
+    //if (!login && !password) {
+    //
+    //} else {
+        signinUser(login, password);
+    //}
 });
 
 // Компании пользователя
@@ -320,7 +366,7 @@ function getCompanies() {
 
 // Добавление компании пользователя
 function addCompany() {
-    $('.company-all').removeClass('error');
+    companyAll.removeClass('error');
     let name = $('#company-name-add').val();
     if (name === '') {
         $('#company-name-add').addClass('error');
@@ -339,7 +385,6 @@ function addCompany() {
     formData.append('phone', $('#company-phone-add').val());
     formData.append('description', description);
 
-
     $.ajax({
         url: 'http://api.phprestapi.loc/user/companies',
         type: 'POST',
@@ -351,7 +396,7 @@ function addCompany() {
         success(res) {
             //console.log(res);
             if (res.status) {
-                $('.company-all').val('');
+                companyAll.val('');
                 getCompanies();
             } else {
                 alert(res.message);
@@ -363,4 +408,22 @@ function addCompany() {
             alert(result.message);
         }
     });
+}
+
+
+function validationString($s) {
+    return $s.trim()
+             .replace(/<[^>]+>/g, '')
+             .replace(/^\s+/g, '')
+             .replace(new RegExp('&mdash;', 'g'), '')
+             .replace(new RegExp('&ndash;', 'g'), '')
+             .replace(new RegExp('&nbsp;', 'g'), '')
+             .replace(new RegExp('&rsquo;', 'g'), '')
+             .replace(new RegExp('&laquo;', 'g'), '')
+             .replace(new RegExp('&raquo;', 'g'), '')
+             .replace(new RegExp('&deg;', 'g'), '')
+             .replace(new RegExp('&prime;', 'g'), '')
+             .replace(/^\s+/, '')
+             .replace(/\s+$/, '')
+             .trim();
 }

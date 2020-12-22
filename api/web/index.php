@@ -26,6 +26,8 @@ $params = explode('/', $q);
 //echo json_encode($response);
 //die();
 
+//sleep(5);
+
 $controller = (string)$params[0];
 $id         = (int)$params[1];
 $method     = $_SERVER['REQUEST_METHOD'];

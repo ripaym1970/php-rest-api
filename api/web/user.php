@@ -49,6 +49,7 @@ function signinUser($connect, $data) {
         $response = [
             'status'  => false,
             'message' => 'Не верный логин или пароль',
+            'fields'  => ['login2', 'password2'],
         ];
     }
 
@@ -215,7 +216,7 @@ function validationString($s) {
     $s = strip_tags($s); // убираем HTML-теги
     $s = str_replace(["\n", "\r"], " ", $s); // убираем перевод каретки
     //$s = preg_replace("/[^0-9a-z-_ ]/i", "", $s); // очищаем строку от недопустимых символов
-    $s = preg_replace("/\s+/", ' ', $s); // удаляем повторяющие пробелы
+    $s = preg_replace("/\s+/", " ", $s); // удаляем повторяющие пробелы
     $s = trim($s); // убираем пробелы в начале и конце строки
 
     return $s; // возвращаем результат

@@ -27,6 +27,7 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                 <div class="header-wrap">
                     <div class="header-item header-item-left">
                         <div class="header-menu">
+                            <a href="/">Тестовое задание</a>
 <!--                            <a href="#" class="header-menu-item--><?//=$auth?><!--">Компании</a>-->
 <!--                            <a href="#" class="header-menu-item--><?//=$auth?><!--">Пользователи</a>-->
 <!--                            <a href="/register.php" class="header-menu-item--><?//=$guest?><!--">Регистрация</a>-->
@@ -104,17 +105,17 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                 <h2>Регистрация</h2>
                 <form>
                     <label for="login">Логин</label>
-                    <input id="login" type="text" name="login" placeholder="Введите логин" value="">
+                    <input id="login" type="text" name="login" placeholder="Введите логин" value="" autocomplete="off">
                     <label for="password">Пароль</label>
-                    <input id="password" type="password" name="password" placeholder="Введите пароль" value="">
+                    <input id="password" type="password" name="password" placeholder="Введите пароль" value="" autocomplete="off">
                     <label for="first_name">Имя</label>
-                    <input id="first_name" type="text" name="first_name" placeholder="Введите свое имя" value="">
+                    <input id="first_name" type="text" name="first_name" placeholder="Введите свое имя" value="" autocomplete="off">
                     <label for="last_name">Фамилия</label>
-                    <input id="last_name" type="text" name="last_name" placeholder="Введите свое фамилию" value="">
+                    <input id="last_name" type="text" name="last_name" placeholder="Введите свое фамилию" value="" autocomplete="off">
                     <label for="email">Почта</label>
-                    <input id="email" type="email" name="email" placeholder="Введите свою почту" value="">
+                    <input id="email" type="email" name="email" placeholder="Введите свою почту" value="" autocomplete="off">
                     <label for="phone">Телефон</label>
-                    <input id="phone" type="text" name="phone" placeholder="Введите свой телефон" value="">
+                    <input id="phone" type="tel" name="phone" placeholder="Введите свой телефон" value="" pattern="/^[+0-9]+$/"  maxlength="14" autocomplete="off">
                     <p class="register-all register-error red hidden"></p>
                     <p class="register-all register-ok green hidden"></p>
                     <button type="button" class="register-btn">Зарегистрироваться</button>
@@ -126,10 +127,10 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                 <h2>Авторизация</h2>
                 <form>
                     <label for="login2">Логин</label>
-                    <input id="login2" type="text" name="login2" placeholder="Введите свой логин" value="">
+                    <input id="login2" type="text" name="login2" placeholder="Введите свой логин" value="" autocomplete="off">
                     <label for="password2">Пароль</label>
-                    <input id="password2" type="password" name="password2" placeholder="Введите пароль" value="">
-                    <p class="signin-all signin-error red hidden"></p>
+                    <input id="password2" type="password" name="password2" placeholder="Введите пароль" value="" autocomplete="off">
+                    <p class="signin-all signin-error red hidden">Не заданы логин и/или пароль</p>
                     <p class="signup-all signin-ok green hidden"></p>
                     <button type="button" class="signin-btn">Войти</button>
                     <p><a href="#" onClick="$('.signin').addClass('hidden');$('.register').removeClass('hidden');">Регистрация</a></p>
