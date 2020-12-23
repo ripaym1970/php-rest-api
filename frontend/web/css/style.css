@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Inter:100, 100i, 200, 200i, 300, 300i, 400, 400i, 500, 500i, 600, 600i, 700, 700i, 800, 800i, 900, 900i');
-
 .hidden {
     display: none !important;
 }
@@ -19,7 +17,6 @@ ul {
 }
 
 a {
-
 }
 
 a:hover {
@@ -44,18 +41,14 @@ button:focus {
     outline: unset;
 }
 
-img {
-    /*display: block;*/
-    max-width: 100%;
-}
-
-
 html{
     box-sizing: border-box;
 }
+
 *, *::before, *::after{
     box-sizing: inherit;
 }
+
 body {
     font-family: 'Inter',"Courier New", Courier, monospace;
     font-weight: 800;
@@ -63,9 +56,6 @@ body {
     line-height: 1.2;
     color: #000000;
     background: #fff;
-    /*position: relative;*/
-    /*width: 100%;*/
-    /*margin: 0 auto;*/
 }
 .container {
     width: 1240px;
@@ -75,17 +65,13 @@ body {
 .header {
     position: fixed;
     top:0;
-    /*left: 0;*/
     width: 100%;
-    /*width: 1440px;*/
     z-index: 10;
-
     display: flex;
     align-items: center;
     color: #fff;
     background-color: #4D0FB6;
     min-height: 48px;
-    /*margin: 0 auto;*/
 }
 
 .header-wrap {
@@ -97,7 +83,6 @@ body {
 .header-item {
     display: flex;
     align-items: center;
-    /*justify-content: space-between;*/
 }
 
 .header-item-left {
@@ -113,26 +98,6 @@ body {
     width: 200px;
     height: 38px;
     display: block;
-}
-
-.selection-city {
-    display: flex;
-    align-items: center;
-    min-width: max-content;
-}
-
-.selection-city-icon {
-    width: 20px;
-    height: 20px;
-}
-
-.selection-city-name {
-    color: #ffffff;
-    padding-left: 10px;
-}
-
-.selection-city-name:hover {
-    color: #ffffff;
 }
 
 .header-menu {
@@ -176,7 +141,6 @@ body {
     color: #fff;
     border-radius: 10px;
     padding: 5px 20px;
-    /*margin-right: 242px;*/
 }
 
 .button-certificate .button-icon {
@@ -255,242 +219,12 @@ body {
     border-color: transparent;
 }
 
-/*.nav-tabs .nav-item.show .nav-link,*/
 .nav-item.active .nav-link {
     color: #ffffff;
     border-color: transparent;
     background-color: #6B1FED;
 }
 
-/*.tab-content {*/
-/*  height: 100vh;*/
-/*}*/
-
-.breadcrumbs {
-    display: flex;
-    align-items: center;
-    margin: 26px 0;
-}
-
-.breadcrumbs li {
-    position: relative;
-    padding-right: 20px;
-    margin-right: 5px;
-}
-
-.breadcrumbs li > a{
-    color: #525262;
-}
-
-.breadcrumbs li:last-child > a{
-    color: #C8C6CC;
-}
-
-.breadcrumbs li:last-child {
-    padding-right: 0;
-    margin-right: 0;
-}
-
-.breadcrumbs > li:before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-    right: 0;
-    height: 10px;
-    width: 15px;
-    background-image: url("../img/icon-arrow-right.svg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-}
-
-.breadcrumbs > li:last-child:before {
-    display: none;
-}
-
-.footer {
-    background-color: #242438;
-}
-
-.footer-inner {
-    padding: 50px 0;
-}
-
-.footer-title {
-    font-weight: bold;
-    font-size: 18px;
-    padding-bottom: 30px;
-    color: #ffffff;
-}
-
-.list-links a {
-    display: block;
-    color: #A7A7CC;
-    margin-bottom: 20px;
-    font-size: 16px;
-}
-
-.city_count {
-    background-color: #6B1FED;
-    color: #ffffff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 30px;
-    padding: 2px 5px;
-    font-size: 14px;
-}
-
-.footer-button {
-    margin-top: 30px;
-}
-
-.button-purple {
-    background-color: #6B1FED;
-    color: #ffffff;
-    font-weight: bold;
-    padding: 5px 15px;
-    border-radius: 5px;
-}
-
-.social-network {
-    display: flex;
-    align-items: center;
-    padding-top: 30px;
-}
-
-.social-network-item {
-    display: block;
-    margin-right: 15px;
-}
-
-.copyright-wrap {
-    border-top: 1px solid #A7A7CC;
-    padding: 10px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.copyright-text {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    color: #A7A7CC;
-}
-
-.copyright-text > a{
-    color: #A7A7CC;
-    padding: 0 5px;
-}
-
-.scrollTop {
-    position: fixed;
-    right: calc((100% - 1110px)/2);
-    z-index: 9;
-    bottom: 100px;
-}
-.topbutton {
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    border-radius: 50%;
-    color: #fff;
-    font-size: 30px;
-    background: #6B1FED;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all .5s;
-}
-/*.topbutton:hover {*/
-/*  color: #b9b7b7;*/
-/*  background: #fff;*/
-/*  transition: all .5s;*/
-/*  box-shadow: 0px 0px 18px 0 #000000;*/
-/*}*/
-
 .input-group {
     padding-top: 30px;
-}
-
-.custom-select {
-    height: auto;
-    padding: 0;
-    font-size: 16px;
-    color: #A7A7CC;
-    background-color: transparent !important;
-    background-image:  url(../img/icon-down-arrow.svg);
-    background-size: contain;
-    border: unset;
-    border-radius: unset;
-    line-height: 1.2;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.custom-select:focus {
-    border-color: unset;
-    box-shadow: unset;
-}
-
-.title {
-    font-size: 36px;
-    font-weight: bold;
-    color: #242438;
-    margin-bottom: 48px;
-}
-
-.filter {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    border: 1px solid #F5F4F6;
-    background-color: #ffffff;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.filter_item {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 16.6%;
-    padding: 10px 15px;
-}
-
-.filter-icon {
-    display: block;
-    width: 20px;
-    height: 20px;
-}
-
-.filter_item:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
-    height: 100%;
-    width: 1px;
-    background-color: #F5F4F6;
-}
-
-.filter_item:last-child:after {
-    display: none;
-}
-
-.filter-text {
-    color: #6B1FED;
-    font-weight: 500;
-}
-
-.button-apply {
-    width: 100%;
 }

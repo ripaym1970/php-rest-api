@@ -25,8 +25,8 @@ let user = {
 
 // Авторизация пользователя
 function signinUser(login, password) {
-    console.log('signinUser login=',login);
-    console.log('signinUser password=',password);
+    //console.log('signinUser login=',login);
+    //console.log('signinUser password=',password);
 
     let fieldErrors = [];
     if (login === '') {
@@ -36,8 +36,7 @@ function signinUser(login, password) {
         fieldErrors.push('password2');
     }
     if (fieldErrors.length > 0) {
-        console.log('fieldErrors=',fieldErrors);
-        console.log('fieldErrors Не заданы логин и/или пароль');
+        //console.log('fieldErrors Не заданы логин и/или пароль');
         fieldErrors.forEach(function (field) {
             $(`input[name="${field}"]`).addClass('error');
         });
@@ -129,88 +128,6 @@ function logoutUser() {
         }
     });
 }
-
-//let selectUserId = null;
-//let userList = document.querySelector('.user-list');
-//let username = document.querySelector('#usernameadd');
-//let usernameupdate = document.querySelector('#usernameupdate');
-//
-//async function getUsers() {
-//    let res = await fetch(`http://api.phprestapi.loc/users`);
-//    let items = await res.json();
-//    userList.innerHTML = '';
-//    items.forEach((item) => {
-//        userList.innerHTML += `
-//<div class="card" style="">
-//    <div class="card-body">
-//        <h5 class="card-title">${item.id}</h5>
-//        <p class="card-text">${item.username}</p>
-//        <a href="#" class="card-link" onClick="getUser(${item.id})">Подробнее</a>
-//        <a href="#" class="card-link" onClick="selectUser(${item.id},'${user.username}')">Редактировать</a>
-//        <a href="#" class="card-link" onClick="deleteUser(${item.id})">Удалить</a>
-//    </div>
-//</div>
-//`;
-//    })
-//}
-//
-//async function getUser(userId) {
-//    let res = await fetch(`http://api.phprestapi.loc/users/${userId}`);
-//    let item = await res.json();
-//    userList.innerHTML = `
-//<div class="card" style="">
-//    <div class="card-body">
-//        <h5 class="card-title">${item.id}</h5>
-//        <p class="card-text">${item.username}</p>
-//        <a href="#" class="card-link" onClick="getUsers()">Все</a>
-//        <a href="#" class="card-link" onClick="selectUser(${item.id},'${item.username}')">Редактировать</a>
-//        <a href="#" class="card-link" onClick="deleteUser(${item.id})">Удалить</a>
-//    </div>
-//</div>
-//`;
-//}
-//
-//async function addUser() {
-//    let formData = new FormData();
-//    formData.append('username', username.value);
-//    let res = await fetch(`http://api.phprestapi.loc/users`, {
-//        method: 'POST',
-//        body: formData
-//    });
-//    let data = await res.json();
-//    if (data.status === true) {
-//        await getUsers();
-//    }
-//}
-//
-//async function deleteUser(userId) {
-//    let res = await fetch(`http://api.phprestapi.loc/users/${userId}`, {
-//        method: 'DELETE'
-//    });
-//    let data = await res.json();
-//    if (data.status === true) {
-//        await getUsers();
-//    }
-//}
-//
-//async function selectUser(userId, userName) {
-//    selectUserId = userId;
-//    usernameupdate.value = userName;
-//}
-//
-//async function updateUser() {
-//    let formData = {
-//        'username': usernameupdate.value
-//    };
-//    let res = await fetch(`http://api.phprestapi.loc/users/${selectUserId}`, {
-//        method: 'PATCH',
-//        body: JSON.stringify(formData)
-//    });
-//    let data = await res.json();
-//    if (data.status === true) {
-//        await getUsers();
-//    }
-//}
 
 let companyList    = document.querySelector('.company-list');
 let inputLogin     = $('input[name="login"]');
@@ -307,17 +224,12 @@ $('.register-btn').click(function (e) {
 
 // Авторизация с формы
 $('.signin-btn').click(function (e) {
-    console.log('signin-btn click');
+    //console.log('signin-btn click');
     e.preventDefault();
     let login = validationString(inputLogin2.val());
     let password = validationString(inputPassword2.val());
-    console.log('login=',login);
-    console.log('password=',password);
-    //if (!login && !password) {
-    //
-    //} else {
-        signinUser(login, password);
-    //}
+
+    signinUser(login, password);
 });
 
 // Компании пользователя
