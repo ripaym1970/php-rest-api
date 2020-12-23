@@ -1,12 +1,3 @@
-<?php
-
-session_start();
-
-$auth  = $_SESSION['user'] ? '' : ' hidden';
-$guest = $_SESSION['user'] ? ' hidden' : '';
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -28,11 +19,7 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                     <div class="header-item header-item-left">
                         <div class="header-menu">
                             <a href="/">Тестовое задание</a>
-<!--                            <a href="#" class="header-menu-item--><?//=$auth?><!--">Компании</a>-->
-<!--                            <a href="#" class="header-menu-item--><?//=$auth?><!--">Пользователи</a>-->
-<!--                            <a href="/register.php" class="header-menu-item--><?//=$guest?><!--">Регистрация</a>-->
-<!--                            <a href="/" class="header-menu-item--><?//=$guest?><!--">Авторизация</a>-->
-                            <a href="#" class="logout<?=$auth?>" onClick="logoutUser()">Выход (<span class="userlogin"></span>)</a>
+                            <a href="#" class="logout hidden" onClick="logoutUser()">Выход (<span class="userlogin"></span>)</a>
                         </div>
                     </div>
                 </div>
@@ -41,7 +28,8 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
 
         <main>
             <h1 class="mb30">Тестовое задание</h1>
-            <section class="users<?=$auth?>">
+
+            <section class="users hidden">
                 <h2>Пользователи</h2>
                 <div class="container mt-5">
                     <div class="row users-list">
@@ -69,7 +57,7 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                 </div>
             </section>
 
-            <section class="companies<?=$auth?>">
+            <section class="companies hidden">
                 <h2>Компании</h2>
                 <div class="container mt-5">
                     <div class="row company-list">
@@ -101,7 +89,7 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                 </div>
             </section>
 
-            <section class="register<?=$auth?>">
+            <section class="register hidden">
                 <h2>Регистрация</h2>
                 <form>
                     <label for="login">Логин</label>
@@ -123,7 +111,7 @@ $guest = $_SESSION['user'] ? ' hidden' : '';
                 </form>
             </section>
 
-            <section class="signin<?=$guest?>">
+            <section class="signin">
                 <h2>Авторизация</h2>
                 <form>
                     <label for="login2">Логин</label>
