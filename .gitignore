@@ -70,5 +70,3 @@ codeception.yml
 /lk/runtime
 /lk/web/assets
 /lk/web/css_old
-#/lk/web/index.php
-#/lk/web/robots.txt
